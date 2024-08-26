@@ -29,7 +29,8 @@
 
 
 //ANSWER
-function argumentsLength(...args) {
-    return args.length;
-}
+    function argumentsLength(...args) {
+        return args.length;
+    }
+
 
