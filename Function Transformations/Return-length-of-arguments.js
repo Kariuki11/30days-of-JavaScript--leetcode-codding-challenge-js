@@ -25,3 +25,11 @@
 
             args is a valid JSON array
             0 <= args.length <= 100
+
+
+
+//ANSWER
+function argumentsLength(...args) {
+    return args.length;
+}
+
