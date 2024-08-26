@@ -25,4 +25,12 @@
 
 
 //ANSWER
+function addTwoPromises(promise1, promise2) {
+    return Promise.all([promise1, promise2])
+        .then(values => {
+            // values is an array containing the resolved values of promise1 and promise2
+            const sum = values[0] + values[1];
+            return sum;
+        });
+}
 
