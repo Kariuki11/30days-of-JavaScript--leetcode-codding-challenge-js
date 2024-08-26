@@ -1,6 +1,6 @@
 //QUESTION 9.
 
-Write a function argumentsLength that returns the count of arguments passed to it.
+//Write a function argumentsLength that returns the count of arguments passed to it.
  
 
 Example 1:
