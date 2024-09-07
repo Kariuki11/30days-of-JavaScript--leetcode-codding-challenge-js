@@ -51,6 +51,34 @@ If, before the delay of t milliseconds, the function cancelFn is invoked, it sho
                         1 <= args.length <= 10
                         20 <= t <= 1000
                         10 <= cancelTimeMs <= 1000
-                        
+
 
 //ANSWER
+        function cancellable(fn, args, t) {
+            let timeoutId;
+            let executed = false;
+        
+            // The function that will execute after the delay `t`
+            const delayedExecution = () => {
+            executed = true;
+            const result = fn(...args);
+            console.log(`[{"time": ${t}, "returned": ${result}}]`); // Log the output as required
+            };
+        
+            // Schedule the execution of `fn` after `t` milliseconds
+            timeoutId = setTimeout(delayedExecution, t);
+        
+            // The cancel function
+            const cancelFn = () => {
+            // If already executed, nothing to cancel
+            if (executed) {
+                return;
+            }
+            // If not yet executed, clear the timeout
+            clearTimeout(timeoutId);
+            console.log("[]"); // Log empty array when cancellation happens before execution
+            };
+        
+            return cancelFn;
+        }
+  
