@@ -76,3 +76,19 @@ fn returns a promise
 
 
 //ANSWER
+
+function timeLimit(fn, t) {
+    return async function(...args) {
+      // Create a timeout promise that rejects after `t` milliseconds
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject("Time Limit Exceeded"), t);
+      });
+  
+      // Race the timeout against the actual function execution
+      const fnPromise = fn(...args);
+  
+      // Use Promise.race to either resolve or reject depending on which finishes first
+      return Promise.race([fnPromise, timeoutPromise]);
+    };
+  }
+  
