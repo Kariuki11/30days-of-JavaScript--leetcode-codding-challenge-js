@@ -92,3 +92,31 @@ args is a valid JSON array
 
 
 //ANSWER
+function cancellable(fn, args, t) {
+    let startTime = Date.now(); // Capture the start time to calculate time deltas
+    let intervalId;
+    
+    // Array to store logs for function executions
+    const logs = [];
+  
+    // Helper function to log the result of each function call
+    const logExecution = () => {
+      const currentTime = Date.now() - startTime;
+      const result = fn(...args);
+      logs.push({ time: currentTime, returned: result });
+      console.log(`[{"time": ${currentTime}, "returned": ${result}}]`);
+    };
+  
+    // Execute the function immediately and start the interval
+    logExecution();
+    intervalId = setInterval(logExecution, t);
+  
+    // Cancel function to stop the interval
+    const cancelFn = () => {
+      clearInterval(intervalId);
+      console.log(logs); // Log the final array of executions
+    };
+  
+    return cancelFn;
+  }
+  
