@@ -73,33 +73,33 @@ Constraints:
 0 <= calls[i].t <= 1000
 0 <= calls[i].inputs.length <= 10
 
-//ANSWER
-function debounce(fn, t) {
-    let timeoutId;
-  
-    return function(...args) {
-      // Clear the previous timer if it exists
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-  
-      // Start a new timer
-      timeoutId = setTimeout(() => {
-        fn(...args); // Execute the function with the passed arguments after t milliseconds
-      }, t);
-    };
-  }
-  
-  // Example usage:
-  
-  let start = Date.now();
-  function log(...inputs) { 
-    console.log([Date.now() - start, inputs]);
-  }
-  
-  const dlog = debounce(log, 50);
-  
-  // Simulating calls with timeouts:
-  setTimeout(() => dlog(1), 50);  // Call at 50ms
-  setTimeout(() => dlog(2), 75);  // Call at 75ms
-  
+        //ANSWER
+                        function debounce(fn, t) {
+                            let timeoutId;
+                        
+                            return function(...args) {
+                            // Clear the previous timer if it exists
+                            if (timeoutId) {
+                                clearTimeout(timeoutId);
+                            }
+                        
+                            // Start a new timer
+                            timeoutId = setTimeout(() => {
+                                fn(...args); // Execute the function with the passed arguments after t milliseconds
+                            }, t);
+                            };
+                        }
+                        
+                        // Example usage:
+                        
+                        let start = Date.now();
+                        function log(...inputs) { 
+                            console.log([Date.now() - start, inputs]);
+                        }
+                        
+                        const dlog = debounce(log, 50);
+                        
+                        // Simulating calls with timeouts:
+                        setTimeout(() => dlog(1), 50);  // Call at 50ms
+                        setTimeout(() => dlog(2), 75);  // Call at 75ms
+                        
