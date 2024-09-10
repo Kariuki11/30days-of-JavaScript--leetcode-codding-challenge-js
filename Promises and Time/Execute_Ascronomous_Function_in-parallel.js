@@ -47,3 +47,52 @@
 
 
 //ANSWER
+
+function promiseAll(functions) {
+    return new Promise((resolve, reject) => {
+      const results = [];
+      let completed = 0;
+      let hasRejected = false;  // To track if any promise was rejected
+  
+      // Iterate over all functions
+      functions.forEach((fn, index) => {
+        fn()  // Call the function to return a promise
+          .then(result => {
+            if (!hasRejected) {
+              results[index] = result;  // Store result in the correct order
+              completed += 1;
+              
+              // If all promises have been resolved
+              if (completed === functions.length) {
+                resolve(results);
+              }
+            }
+          })
+          .catch(error => {
+            if (!hasRejected) {
+              hasRejected = true;  // Prevent further execution after rejection
+              reject(error);  // Reject with the first error encountered
+            }
+          });
+      });
+    });
+  }
+  
+  // Example 1: Testing with a single function that resolves after 200ms
+  promiseAll([
+    () => new Promise(resolve => setTimeout(() => resolve(5), 200))
+  ]).then(res => console.log({"t": 200, "resolved": res}));
+  
+  // Example 2: Testing with one function that rejects
+  promiseAll([
+    () => new Promise(resolve => setTimeout(() => resolve(1), 200)),
+    () => new Promise((resolve, reject) => setTimeout(() => reject("Error"), 100))
+  ]).catch(err => console.log({"t": 100, "rejected": err}));
+  
+  // Example 3: Testing with multiple functions resolving at different times
+  promiseAll([
+    () => new Promise(resolve => setTimeout(() => resolve(4), 50)),
+    () => new Promise(resolve => setTimeout(() => resolve(10), 150)),
+    () => new Promise(resolve => setTimeout(() => resolve(16), 100))
+  ]).then(res => console.log({"t": 150, "resolved": res}));
+  
