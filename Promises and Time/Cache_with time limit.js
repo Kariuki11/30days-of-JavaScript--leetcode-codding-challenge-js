@@ -57,3 +57,53 @@ First action is always "TimeLimitedCache" and must be executed immediately, with
 
 
 //ANSWER
+class TimeLimitedCache {
+    constructor() {
+      this.cache = new Map();
+    }
+  
+    set(key, value, duration) {
+      const currentTime = Date.now();
+      const isExistingKey = this.cache.has(key) && this.cache.get(key).expiresAt > currentTime;
+  
+      // Set or overwrite the value and expiration time for the key
+      this.cache.set(key, {
+        value: value,
+        expiresAt: currentTime + duration,
+      });
+  
+      return isExistingKey;
+    }
+  
+    get(key) {
+      const currentTime = Date.now();
+  
+      if (this.cache.has(key) && this.cache.get(key).expiresAt > currentTime) {
+        return this.cache.get(key).value;
+      }
+  
+      return -1;
+    }
+  
+    count() {
+      const currentTime = Date.now();
+      let count = 0;
+  
+      this.cache.forEach((entry) => {
+        if (entry.expiresAt > currentTime) {
+          count++;
+        }
+      });
+  
+      return count;
+    }
+  }
+  
+  // Example usage:
+  const cache = new TimeLimitedCache();
+  
+  console.log(cache.set(1, 42, 100)); // false (key didn't exist)
+  setTimeout(() => console.log(cache.get(1)), 50); // 42 (key exists and hasn't expired)
+  setTimeout(() => console.log(cache.count()), 50); // 1 (one key is still valid)
+  setTimeout(() => console.log(cache.get(1)), 150); // -1 (key expired)
+  
