@@ -37,6 +37,10 @@
                                             2 <= JSON.stringify(arr).length <= 105
                                             1 <= size <= arr.length + 1
 
-
+        Approach:
+            // Use a for loop to iterate through the array.
+            // Slice out subarrays of the specified size and push them into a result array.
+            // If the array length is not divisible by the chunk size, the last chunk will have fewer elements, which is handled by slicing.
+                                            
 
                         //Answer
