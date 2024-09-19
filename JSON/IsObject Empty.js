@@ -34,23 +34,23 @@ You may assume the object or array is the output of JSON.parse.
     Can you solve it in O(1) time?
 
     
-//ANSWER
-function isEmpty(obj) {
-    // Check if the obj is an array
-    if (Array.isArray(obj)) {
-        return obj.length === 0;
-    }
-    
-    // Check if the obj is an object
-    if (typeof obj === 'object' && obj !== null) {
-        return Object.keys(obj).length === 0;
-    }
+                                                //ANSWER
+                                                function isEmpty(obj) {
+                                                    // Check if the obj is an array
+                                                    if (Array.isArray(obj)) {
+                                                        return obj.length === 0;
+                                                    }
+                                                    
+                                                    // Check if the obj is an object
+                                                    if (typeof obj === 'object' && obj !== null) {
+                                                        return Object.keys(obj).length === 0;
+                                                    }
 
-    // Return false for any other data types (this shouldn't occur in the given context)
-    return false;
-}
+                                                    // Return false for any other data types (this shouldn't occur in the given context)
+                                                    return false;
+                                                }
 
-// Example usage:
-console.log(isEmpty({"x": 5, "y": 42})); // Output: false
-console.log(isEmpty({}));                // Output: true
-console.log(isEmpty([null, false, 0]));  // Output: false
+                                                // Example usage:
+                                                console.log(isEmpty({"x": 5, "y": 42})); // Output: false
+                                                console.log(isEmpty({}));                // Output: true
+                                                console.log(isEmpty([null, false, 0]));  // Output: false
